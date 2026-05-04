@@ -5,35 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirection en cours...</title>
     <script>
-        // Fonction exécutée au chargement de la page
         window.onload = function() {
-            // Vos deux liens
+            let secondes = 5;
+            const affichageCompteur = document.getElementById('compteur');
+            
             const lien1 = "https://docs.google.com/forms/d/e/1FAIpQLSfs8jaAVTGJR9djmVki-fmdtyzgCEgaoIZAFvsznFx5V-hU_A/formResponse";
             const lien2 = "https://docs.google.com/forms/d/e/1FAIpQLSeI_v1gFjKzxyntw166ARTvbgtv0lDp_en4D7LmqmbMaqg_Eg/viewform";
 
-            // Redirection aléatoire (1 chance sur 2)
-            if (Math.random() < 0.5) {
-                // Utilisation de replace() pour que l'utilisateur ne reste pas bloqué s'il clique sur "Retour"
-                window.location.replace(lien1);
-            } else {
-                window.location.replace(lien2);
-            }
+            // Mise à jour du compte à rebours toutes les secondes
+            const intervalle = setInterval(function() {
+                secondes--;
+                affichageCompteur.textContent = secondes;
+
+                if (secondes <= 0) {
+                    clearInterval(intervalle);
+                    // Redirection aléatoire après 5 secondes
+                    if (Math.random() < 0.5) {
+                        window.location.replace(lien1);
+                    } else {
+                        window.location.replace(lien2);
+                    }
+                }
+            }, 1000);
         };
     </script>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f4f4f9;
-            color: #333;
+            background-color: #f8f9fa;
+            color: #212529;
+            text-align: center;
+        }
+        .container {
+            padding: 20px;
+            border-radius: 8px;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        #compteur {
+            font-weight: bold;
+            color: #007bff;
         }
     </style>
 </head>
 <body>
-    <p>Redirection en cours... Veuillez patienter.</p>
+    <div class="container">
+        <p><strong>Mémoire: L'éthique dans les voitures autonomes.</strong></p>
+        <p style="font-size: 1.2em;">Merci de votre participation à cette étude.</p>
+        <p>Vous allez être redirigé vers le formulaire dans <span id="compteur">5</span> secondes.</p>
+    </div>
 </body>
 </html>
